@@ -20,6 +20,12 @@ export default function List(){
     const[AppID,setAppID] = useState('')
     const classes = useStyles();
 
+    const handleClick =(e) => {
+        e.preventDefault()
+        const list = {name, ID, IP, AppID}
+        console.log(list)
+    }
+
     return (
     <Container>
         <Paper elevation = {3} style = {paperStyle}>
@@ -46,7 +52,7 @@ export default function List(){
                 onChange = {(e) => setAppID(e.target.value)}
     />
 
-    <Button variant="contained">
+    <Button variant="contained" color ="primary" onClick = {handleClick}>
     Create New User
     </Button>
 
