@@ -1,16 +1,11 @@
 import React, {useState} from 'react';
 import { TextField } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import {Container, Paper, Button} from "@material-ui/core";
+import theme from "./Appbar";
+import {useTheme} from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        '& > *': {
-            margin: theme.spacing(1),
-            width: '25ch'
-        },
-    },
-}));
+
+
 
 export default function List(){
     const paperStyle ={padding: '50px 20px', width:600, margin: "20px auto"}
@@ -18,18 +13,24 @@ export default function List(){
     const[ID,setID] = useState('')
     const[IP,setIP] = useState('')
     const[AppID,setAppID] = useState('')
-    const classes = useStyles();
+    const classes = useTheme(theme);
 
     const handleClick =(e) => {
         e.preventDefault()
         const list = {name, ID, IP, AppID}
         console.log(list)
+        setName("")
+        setID("")
+        setIP("")
+        setAppID("")
     }
+    
+
 
     return (
     <Container>
         <Paper elevation = {3} style = {paperStyle}>
-            <h1 style = {{color: "blue"}}>Add User</h1>
+            <h1 style = {{color: "primary.main"}}>Add User</h1>
     <form className = {classes.root} noValidate autoComplete = "off">
 
     <TextField id = "outlined-basic" label= "Username:" variant ="outlined"
@@ -52,9 +53,10 @@ export default function List(){
                 onChange = {(e) => setAppID(e.target.value)}
     />
 
-    <Button variant="contained" color ="primary" onClick = {handleClick}>
+    <Button variant="contained" color ="primary.main" onClick = {handleClick}>
     Create New User
     </Button>
+
 
     </form>
     </Paper>
