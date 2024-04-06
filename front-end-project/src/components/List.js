@@ -17,20 +17,37 @@ export default function List(){
 
     const handleClick =(e) => {
         e.preventDefault()
-        const list = {name, ID, IP, AppID}
-        console.log(list)
+        const user = {name, ID, IP, AppID}
+        console.log(user)
+    //     fetch("http://localhost:8080/user/add",{
+    //         method: "POST",
+    //         headers:{"Content-Type":"application/json"},
+    //         body:JSON.stringify(user)
+    // })
         setName("")
         setID("")
         setIP("")
         setAppID("")
     }
+
+    // const userDetails = ({ user }) => {
+    //     return (
+    //       <div>
+    //         <h2>User Details</h2>
+    //         <p>User ID: {user.ID}</p>
+    //         <p>User Name: {user.name}</p>
+    //         <p>User IP: {user.IP}</p>
+    //         <p>User AppID: {user.AppID}</p>
+    //       </div>
+    //     );
+    //   };
     
 
 
     return (
     <Container>
         <Paper elevation = {3} style = {paperStyle}>
-            <h1 style = {{color: "primary.main"}}>Add User</h1>
+            <h1 style = {{color: "#006747"}}>Add User</h1>
     <form className = {classes.root} noValidate autoComplete = "off">
 
     <TextField id = "outlined-basic" label= "Username:" variant ="outlined"
@@ -56,6 +73,10 @@ export default function List(){
     <Button variant="contained" color ="primary.main" onClick = {handleClick}>
     Create New User
     </Button>
+
+    {/* <Button variant="contained" color ="primary.main" onClick = {userDetails}>
+    Show User
+    </Button> */}
 
 
     </form>
