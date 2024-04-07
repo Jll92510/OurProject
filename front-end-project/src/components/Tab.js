@@ -6,8 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Container, Paper, Button} from '@material-ui/core';
 import {TextField} from '@material-ui/core';
-import {useTheme} from '@material-ui/core/styles';
-import theme from "./Appbar";
 import EnhancedTable from './Table';
 
 
@@ -50,7 +48,6 @@ export default function BasicTabs() {
   const[ID,setID] = useState('')
   const[IP,setIP] = useState('')
   const[AppID,setAppID] = useState('')
-  const classes = useTheme(theme);
 
   const handleClick =(e) => {
     e.preventDefault()
