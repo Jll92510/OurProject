@@ -8,6 +8,7 @@ import { Container, Paper, Button} from '@material-ui/core';
 import {TextField} from '@material-ui/core';
 import {useTheme} from '@material-ui/core/styles';
 import theme from "./Appbar";
+import EnhancedTable from './Table';
 
 
 function CustomTabPanel(props) {
@@ -74,20 +75,20 @@ export default function BasicTabs() {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
+          <Tab label="Add User" {...a11yProps(0)} />
+          <Tab label="View Users" {...a11yProps(1)} />
+          <Tab label="Edit Users" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        Add User
+        <h1 style = {{color: "#006747"}}>Add User</h1>
         <Container>
           <Paper elevation = {8} style = {{padding: '50px 20px', width:600, margin: "20px auto"}}>
             <TextField id = "outlined-basic" label = "Username:" variant = "outlined"
               value = {name}
               onChange = {(e) => setName(e.target.value)}
             />
-
+          
             <TextField id = "outlined-basic" label= "User ID:" variant ="outlined"
               value ={ID}
               onChange = {(e) => setID(e.target.value)}
@@ -110,10 +111,11 @@ export default function BasicTabs() {
         </Container>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        View Users
+      <h1 style = {{color: "#006747"}}>View Users</h1>
+        <EnhancedTable/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        Edit Users
+      <h1 style = {{color: "#006747"}}>Edit Users</h1>
       </CustomTabPanel>
     </Box>
   );
