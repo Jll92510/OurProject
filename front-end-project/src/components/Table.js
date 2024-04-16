@@ -33,12 +33,12 @@ function createData(id, name, ip, appId) {
 }
 
 const rows = [
-  createData(1, 'Leejac', 123, 3.7),
-  createData(2, 'Jlee', 452, 25.0),
-  createData(3, 'ELong', 262, 16.0),
-  createData(4, 'JohnSmith123', 159, 6.0),
-  createData(5, 'ElaineT', 356, 16.0),
-  createData(6, 'AnnaB', 408, 3.2),
+  createData(1, 'Leejac', "123.123.123.123", 3.7),
+  createData(2, 'Jlee',"432.153.673.143", 25.0),
+  createData(3, 'ELong', "543.865.162.890", 16.0),
+  createData(4, 'JohnSmith123', "675.864.777.453", 6.0),
+  createData(5, 'ElaineT', "888.160.860.765", 16.0),
+  createData(6, 'AnnaB', "444.324.534.898", 3.2),
 ];
 
 function handleFilter(event) {
@@ -85,7 +85,7 @@ const headCells = [
     id: 'name',
     numeric: false,
     disablePadding: true,
-    label: 'Username ',
+    label: 'User ',
   },
   {
     id: 'id',
