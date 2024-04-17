@@ -9,40 +9,28 @@ import {useTheme} from '@material-ui/core/styles';
 
 export default function List(){
     const paperStyle ={padding: '50px 20px', width:600, margin: "20px auto"}
-    const[name, setName] = useState('')
-    const[ID,setID] = useState('')
-    const[IP,setIP] = useState('')
-    const[AppID,setAppID] = useState('')
+    const[user_uid, setName] = useState('')
+    const[user_id,setID] = useState('')
+    const[user_password,setIP] = useState('')
+    const[user_role,setAppID] = useState('')
     const classes = useTheme(theme);
 
     const handleClick =(e) => {
         e.preventDefault()
-        const user = {name, ID, IP, AppID}
+        const user = {user_uid, user_id, user_password, user_role}
         console.log(user)
-    //     fetch("http://localhost:8080/user/add",{
-    //         method: "POST",
-    //         headers:{"Content-Type":"application/json"},
-    //         body:JSON.stringify(user)
-    // })
+        fetch("http://localhost:8080/customer",{
+            method: "POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(user)
+    }).then(()=>{
+        console.log("New user added")
+    })
         setName("")
         setID("")
         setIP("")
         setAppID("")
     }
-
-    // const userDetails = ({ user }) => {
-    //     return (
-    //       <div>
-    //         <h2>User Details</h2>
-    //         <p>User ID: {user.ID}</p>
-    //         <p>User Name: {user.name}</p>
-    //         <p>User IP: {user.IP}</p>
-    //         <p>User AppID: {user.AppID}</p>
-    //       </div>
-    //     );
-    //   };
-    
-
 
     return (
     <Container>
@@ -51,22 +39,22 @@ export default function List(){
     <form className = {classes.root} noValidate autoComplete = "off">
 
     <TextField id = "outlined-basic" label= "Username:" variant ="outlined"
-    value ={name}
+    value ={user_uid}
     onChange = {(e) => setName(e.target.value)}
     />
 
     <TextField id = "outlined-basic" label= "User ID:" variant ="outlined"
-        value ={ID}
+        value ={user_id}
         onChange = {(e) => setID(e.target.value)}
     />
 
     <TextField id = "outlined-basic" label= "User IP Address:" variant ="outlined"
-            value ={IP}
+            value ={user_password}
             onChange = {(e) => setIP(e.target.value)}
     />
 
     <TextField id = "outlined-basic" label= "Application ID's Allotted" variant ="outlined"
-                value ={AppID}
+                value ={user_role}
                 onChange = {(e) => setAppID(e.target.value)}
     />
 

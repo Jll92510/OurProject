@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -21,7 +21,7 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { visuallyHidden } from '@mui/utils';
-
+import axios from "axios";
 
 function createData(id, name, ip, appId) {
   return {
@@ -32,7 +32,26 @@ function createData(id, name, ip, appId) {
   };
 }
 
+// const[user,setUser] = useState([])
+
+// useEffect(() =>{
+//     fetch("http://localhost:8080/getAll")
+//     .then(res=>res.json())
+//     .then((result) =>{
+//     setUser(result);
+//     }
+// )
+// },[])
+
+// var userDetails = user.map((user, index)=> {
+//   return(
+
+//   )
+// })
+
+
 const rows = [
+
   createData(1, 'Leejac', "123.123.123.123", 3.7),
   createData(2, 'Jlee',"432.153.673.143", 25.0),
   createData(3, 'ELong', "543.865.162.890", 16.0),
@@ -45,6 +64,8 @@ function handleFilter(event) {
     const newData = rows.filter(row => {
         row.name.toLowerCase().includes(event.target.value.toLowerCase())
 })
+
+
 
 }
 
@@ -100,7 +121,7 @@ const headCells = [
     label: 'Ip Address ',
   },
   {
-    id: 'appid',
+    id: "user.server_info_uid",
     numeric: true,
     disablePadding: false,
     label: 'Application ID(s) ',
@@ -113,6 +134,8 @@ function EnhancedTableHead(props) {
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
+
+
 
   return (
     <TableHead>
