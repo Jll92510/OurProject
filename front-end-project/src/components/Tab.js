@@ -12,6 +12,7 @@ import MyTable from './MyTable';
 import EditPage from '../User/EditPage';
 import AppInfo from '../User/AddApp';
 import ViewApps from '../User/AppTable';
+import ViewServer from '../User/ViewServer';
 import { useParams } from 'react-router-dom';
 
 
@@ -96,6 +97,7 @@ export default function BasicTabs() {
           <Tab label="View Users" {...a11yProps(1)} />
           <Tab label="Add Application" {...a11yProps(2)} />
           <Tab label="View Application" {...a11yProps(3)} />
+          <Tab label="View Server" {...a11yProps(4)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -145,6 +147,14 @@ export default function BasicTabs() {
         <h1 style = {{color: "#006747"}}>View Application</h1>
         <Container>
           <ViewApps/>
+        </Container>
+      </CustomTabPanel>
+
+      
+      <CustomTabPanel value={value} index={4}>
+        <h1 style = {{color: "#006747"}}>View Servers</h1>
+        <Container>
+          <ViewServer/>
         </Container>
       </CustomTabPanel>
     </Box>
