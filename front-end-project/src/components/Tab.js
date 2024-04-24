@@ -6,11 +6,14 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Container, Paper, Button} from '@material-ui/core';
 import {TextField} from '@material-ui/core';
-import EnhancedTable from './Table';
 import theme from "./Appbar";
 import {useTheme} from '@material-ui/core/styles';
-import App from './MyTable';
 import MyTable from './MyTable';
+import EditPage from '../User/EditPage';
+import AppInfo from '../User/AddApp';
+import ViewApps from '../User/AppTable';
+import { useParams } from 'react-router-dom';
+
 
 
 function CustomTabPanel(props) {
@@ -25,7 +28,7 @@ function CustomTabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 4 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -54,6 +57,9 @@ export default function BasicTabs() {
   const[user_role,setAppID] = useState('')
   const classes = useTheme(theme);
   const[user, setUsers] = useState([])
+
+  const {server_uid} = useParams();
+
 
   const handleClick =(e) => {
     e.preventDefault()
@@ -88,7 +94,8 @@ export default function BasicTabs() {
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Add User" {...a11yProps(0)} />
           <Tab label="View Users" {...a11yProps(1)} />
-          <Tab label="Edit Users" {...a11yProps(2)} />
+          <Tab label="Add Application" {...a11yProps(2)} />
+          <Tab label="View Application" {...a11yProps(3)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -120,39 +127,24 @@ export default function BasicTabs() {
           </Button>
           </Paper>
         </Container>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
+        </CustomTabPanel>
+
+        <CustomTabPanel value={value} index={1}>
       <h1 style = {{color: "#006747"}}>View Users</h1>
           <MyTable/>
       </CustomTabPanel>
+
       <CustomTabPanel value={value} index={2}>
-      <h1 style = {{color: "#006747"}}>Edit Users</h1>
-      <Container>
-          <Paper elevation = {8} style = {{padding: '50px 20px', width:600, margin: "20px auto"}}>
-            <TextField id = "outlined-basic" label = "User UID:" variant = "outlined"
-              value = {user_uid}
-              onChange = {(e) => setName(e.target.value)}
-            />
-          
-            <TextField id = "outlined-basic" label= "User ID:" variant ="outlined"
-              value ={user_id}
-              onChange = {(e) => setID(e.target.value)}
-            />
+        <h1 style = {{color: "#006747"}}>Add Application</h1>
+        <Container>
+          <AppInfo/>
+        </Container>
+      </CustomTabPanel>
 
-          <TextField id = "outlined-basic" label= "User Password:" variant ="outlined"
-              value ={user_password}
-              onChange = {(e) => setIP(e.target.value)}
-           />
-
-          <TextField id = "outlined-basic" label= "User Role:" variant ="outlined"
-                value ={user_role}
-                onChange = {(e) => setAppID(e.target.value)}
-          />
-
-          <Button variant="contained" color ="primary.main" onClick = {handleClick}>
-          Create New User
-          </Button>
-          </Paper>
+      <CustomTabPanel value={value} index={3}>
+        <h1 style = {{color: "#006747"}}>View Application</h1>
+        <Container>
+          <ViewApps/>
         </Container>
       </CustomTabPanel>
     </Box>

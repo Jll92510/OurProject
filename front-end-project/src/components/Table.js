@@ -102,6 +102,8 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
+
+  
   {
     id: 'name',
     numeric: false,

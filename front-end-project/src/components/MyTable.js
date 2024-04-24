@@ -7,31 +7,36 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from "axios";
+import { Box, Button} from '@mui/material';
+import { Link, useParams } from 'react-router-dom';
 
 
 
-// function createData(name, calories, fat, carbs, protein) {
-//   return { name, calories, fat, carbs, protein };
-// }
-
-// const rows = [
-//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-//   createData('Eclair', 262, 16.0, 24, 6.0),
-//   createData('Cupcake', 305, 3.7, 67, 4.3),
-//   createData('Gingerbread', 356, 16.0, 49, 3.9),
-// ];
 
 export default function BasicTable() {
-    const [users,setUsers] = useState([])
+    const [user, setUser] = useState([])
+
+    const {server_uid} = useParams();
+  
     useEffect(() => {
         loadUsers();
-    },[]);
+    }, []);
 
-    const loadUsers =async() => {
-        const result=await axios.get("http://localhost:8080/getAll")
-        setUsers(result.data);
+    const loadUsers=async() => {
+      const result =await axios.get("http://localhost:8080/customer/getAll")
+      setUser(result.data);
+    };
+
+    const deleteUser = async (server_uid) => {
+      await axios.delete(`http://localhost:8080/customer/${server_uid}`)
+      loadUsers();
     }
+
+    const addToApp = async () => {
+      const result = await axios.post("http://locahost:8080/userapps")
+      setUser(result.data);
+    }
+
 
 
   return (
@@ -40,28 +45,46 @@ export default function BasicTable() {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell align = "left">Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell align ="center">User UID</TableCell>
+            <TableCell align="center">Username</TableCell>
+            <TableCell align="center">User Role</TableCell>
+            <TableCell align="center">Created By</TableCell>
+            <TableCell align="center">Created At</TableCell>
+            <TableCell align="center">Modified By</TableCell>
+            <TableCell align="center">Modified At</TableCell>
+            <TableCell align="center">Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {users.map((user,index) => (
+          {user.map((user,index)=> (
             <TableRow
-              key={user.name}
+              key={user.user_uid}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
-                {user.source_ip_address}
+              <TableCell component="th" scope="row" align = "center"> {user.user_uid}</TableCell>
+              <TableCell align="center">{user.user_id}</TableCell>
+              <TableCell align="center">{user.user_role}</TableCell>
+              <TableCell align="center">{user.create_by}</TableCell>
+              <TableCell align="center">{user.create_at}</TableCell>
+              <TableCell align="center">{user.modified_by}</TableCell>
+              <TableCell align="center">{user.modified_at}y</TableCell>
+              <TableCell align="center">
+                <Box textAlign={"center"}>
+                  <Button size = "small" variant="text" color="success">
+                  <Link size = "small" variant="text" color="secondary" to = {`/edituser/${user.user_uid}`}>Edit</Link>
+                  </Button>
+                  <Button size = "small" variant="text" color="success">
+                  <Link size = "small" variant="text" color="secondary" to = {`/viewuser/${user.user_uid}`}>View</Link>
+                  </Button>
+                  <Button size = "small" variant="text" color="success">
+                  <Link size = "small" variant="text" color="secondary" to = {`/addtoapp/${user.user_uid}`}>Add To Application</Link>
+                  </Button>
+                  <Button size = "small" variant="text" color="error" onClick = {() => deleteUser(user.user_uid)}>Delete</Button>
+
+                </Box>
               </TableCell>
-              <TableCell align="right">{user.app_info_uid}</TableCell>
-              <TableCell align="right">{user.source_ip_address}</TableCell>
-              <TableCell align="right">{user.create_by}</TableCell>
-              <TableCell align="right">{user.modified_by}</TableCell>
             </TableRow>
-          ))}
+          ))} 
         </TableBody>
       </Table>
     </TableContainer>
