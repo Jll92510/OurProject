@@ -5,30 +5,33 @@ import user_icon from '../Assets/person.png'
 import password_icon from '../Assets/password.png'
 import logo_true from '../Assets/logo-true.png'
 
-//function CheckLogin(usable_logins, proposed_login) {
-//    for(let index = 0; index <= usable_logins.length; index++){
-//      if(usable_logins[index[0,0]] === proposed_login[0,0]){
-//        if(usable_logins[index[0,1]] === proposed_login[0,1]){
-//          return 1
-//        } else { return 0}
-//      } else { return 0}
-//    }
-//  }
-
 const LoginSignup = () => {
 
   const [action,setAction] = useState("Admin Login");
   const [logging,setLogging] = useState("No Login");
 
-  const [usernameVal, setUserVal] = useState("");
-  const [passwordVal, setPassVal] = useState("");
+  const [user_id, setUserVal] = useState("");
+  const [user_password, setPassVal] = useState("");
 
-  const changeUser = () => {
-    setUserVal(EventTarget.value)
-  }
+  function loginAttempt () {
+    console.log("Made To loginAttempt");
+    setLogging("No Login")
 
-  const changePass = () => {
-    setPassVal(EventTarget.value)
+    // THIS IS WHERE THE CALL TO THE ID CHECK FUNCTION IS CALLED. VALUE 'temp' SHOULD EQUAL THE OUTPUT OF SAID FUNCTION
+    const temp = user_id;
+
+
+    if(temp === "0"){
+      setLogging("Bad Login")
+    }
+    else{
+      setLogging("Good Login")
+      if(action === "Admin Login"){
+        console.log("Successful Admin Login")
+      }else{
+        console.log("Successful User Login")
+      }
+    }
   }
 
   return (
@@ -51,25 +54,24 @@ const LoginSignup = () => {
         <div className="inputs">
             <div className="input">
                 <img src={user_icon} alt="" />
-                <input 
-                    onChange={changeUser}
-                    value = {usernameVal} 
+                <input
+                    onChange={e => setUserVal(e.target.value)}
+                    value = {user_id} 
                     type="text" 
                     placeholder="Username"/>
             </div>
             <div className="input">
                 <img src={password_icon} alt="" />
                 <input 
-                    onChange={changePass}
-                    value = {passwordVal} 
-                    type="password" 
+                    onChange={e => setPassVal(e.target.value)}
+                    value = {user_password} 
+                    type="text" 
                     placeholder="Password"/>
             </div>
         </div>
         <div className="user-button">
             <div className="incorrect-password">{logging==="Bad Login"?<div>Incorrect Username or Password! Please try again.</div>:<div></div>}</div>
-            <div className="login-button">Login</div>
-            <div onClick></div>
+            <div className="login-button" onClick={()=> loginAttempt() & console.log("on click works!")}>Login</div>
         </div>
     </div>
   )
